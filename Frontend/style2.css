@@ -1,0 +1,53 @@
+.cart-container, .payment-form {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    background: #ffe4ec;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.cart-item img {
+    width: 100px;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.remove-btn {
+    background: crimson;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cart-total {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.payment-form input, 
+.payment-form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.payment-form button {
+    background: hotpink;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

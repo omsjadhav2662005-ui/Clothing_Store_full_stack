@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details - Clothing Store</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { background: #ffe6f0; font-family: 'Poppins', sans-serif; }
+
+    .pd-wrapper {
+      max-width: 1100px;
+      margin: 36px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb-bar {
+      font-size: 13px;
+      color: #aaa;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .breadcrumb-bar a { color: #ff4da6; text-decoration: none; }
+    .breadcrumb-bar a:hover { text-decoration: underline; }
+
+    /* Main card */
+    .pd-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(255,77,166,0.1);
+      padding: 32px;
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    /* Image section */
+    .pd-images { width: 400px; flex-shrink: 0; }
+
+    .pd-main-img-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid #ffe0f0;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    #product-main-image {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    #product-main-image:hover { transform: scale(1.04); }
+
+    /* Discount badge on image */
+    .img-discount-badge {
+      position: absolute;
+      top: 14px; left: 14px;
+      background: #ff4da6;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      display: none;
+    }
+
+    /* Thumbnail row */
+    .pd-thumbs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pd-thumb {
+      width: 68px; height: 78px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid #ffe0f0;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .pd-thumb:hover, .pd-thumb.active { border-color: #ff4da6; }
+
+    /* Details section */
+    .pd-details { flex: 1; min-width: 0; }
+
+    .pd-category {
+      font-size: 12px;
+      font-weight: 600;
+      color: #ff4da6;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    #product-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    /* Rating row */
+    .pd-rating {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .stars { color: #ffc107; font-size: 16px; }
+    .rating-count { font-size: 13px; color: #aaa; }
+
+    /* Price row */
+    .pd-price-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    #product-price {
+      font-size: 30px;
+      font-weight: 800;
+      color: #ff4da6;
+    }
+    #product-original-price {
+      font-size: 17px;
+      text-decoration: line-through;
+      color: #bbb;
+    }
+    #product-discount {
+      background: #fff0f6;
+      color: #d63384;
+      border: 1px solid #ffd6ea;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      display: none;
+    }
+
+    /* Savings banner */
+    #savings-banner {
+      background: #f0fff4;
+      border: 1px solid #28a745;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      color: #28a745;
+      font-weight: 600;
+      margin-bottom: 18px;
+      display: none;
+    }
+
+    /* Description */
+    #product-desc {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    /* Divider */
+    .pd-divider {
+      border: none;
+      border-top: 1px solid #ffe0f0;
+      margin: 18px 0;
+    }
+
+    /* Section label */
+    .pd-section-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #555;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Size buttons */
+    .size-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .size-btn {
+      min-width: 44px;
+      padding: 8px 14px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      transition: 0.2s;
+      color: #444;
+    }
+    .size-btn:hover { border-color: #ff4da6; color: #ff4da6; }
+    .size-btn.active { background: #ff4da6; color: white; border-color: #ff4da6; }
+
+    /* Color buttons */
+    .color-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .color-btn {
+      padding: 7px 16px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'Poppins', sans-serif;
+      transition: 0.2s;
+      color: #444;
+    }
+    .color-btn:hover { border-color: #ff4da6; }
+    .color-btn.active { background: #ff4da6; color: white; border-color: #ff4da6; }
+
+    /* Quantity */
+    .qty-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .qty-label { font-size: 13px; font-weight: 700; color: #555; }
+    .qty-control { display: flex; align-items: center; gap: 0; border: 2px solid #ffe0f0; border-radius: 10px; overflow: hidden; }
+    .qty-btn {
+      width: 38px; height: 38px;
+      border: none; background: #fff0f6;
+      color: #ff4da6; font-size: 20px; font-weight: 700;
+      cursor: pointer; transition: 0.2s; display: flex;
+      align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { background: #ff4da6; color: white; }
+    #product-qty {
+      width: 48px; height: 38px;
+      border: none; border-left: 2px solid #ffe0f0; border-right: 2px solid #ffe0f0;
+      text-align: center; font-size: 15px; font-weight: 700;
+      font-family: 'Poppins', sans-serif; color: #333;
+    }
+    #product-qty:focus { outline: none; }
+
+    /* Stock badge */
+    .stock-badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .in-stock { background: #f0fff4; color: #28a745; border: 1px solid #28a745; }
+    .low-stock { background: #fff8e1; color: #f59e0b; border: 1px solid #f59e0b; }
+    .out-stock { background: #fff0f0; color: #dc3545; border: 1px solid #dc3545; }
+
+    /* Action buttons */
+    .action-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+
+    .btn-add-cart {
+      flex: 1;
+      background: linear-gradient(135deg, #ff4da6, #d63384);
+      color: white; border: none;
+      padding: 14px 20px; border-radius: 30px;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: 0.2s;
+      box-shadow: 0 4px 15px rgba(255,77,166,0.3);
+      font-family: 'Poppins', sans-serif;
+    }
+    .btn-add-cart:hover {
+      background: linear-gradient(135deg, #d63384, #b30059);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(255,77,166,0.4);
+    }
+
+    .btn-buy-now {
+      flex: 1;
+      background: white;
+      color: #ff4da6;
+      border: 2px solid #ff4da6;
+      padding: 14px 20px; border-radius: 30px;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: 0.2s;
+      font-family: 'Poppins', sans-serif;
+    }
+    .btn-buy-now:hover { background: #fff0f6; }
+
+    /* Features row */
+    .pd-features {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 16px;
+      background: #fff8fc;
+      border-radius: 12px;
+      border: 1px solid #ffe0f0;
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #666;
+      font-weight: 500;
+    }
+    .feature-item .fi { font-size: 18px; }
+
+    /* Toast */
+    #pd-toast {
+      position: fixed; bottom: 30px; right: 30px; z-index: 9999;
+      padding: 13px 22px; border-radius: 10px; color: white;
+      font-size: 14px; font-weight: 600;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+      display: none; animation: fadeUp 0.3s ease;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+    /* Loading / Error */
+    .pd-loading {
+      text-align: center; padding: 80px 20px;
+    }
+    .pd-spinner {
+      width: 48px; height: 48px;
+      border: 4px solid #ffe6f0;
+      border-top: 4px solid #ff4da6;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 18px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 768px) {
+      .pd-card { flex-direction: column; padding: 20px; gap: 24px; }
+      .pd-images { width: 100%; }
+      #product-main-image { height: 300px; }
+      #product-name { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-3">
+  <img src="images/logo.img.png" alt="ClothingStore Logo" class="logo">
+  <div class="collapse navbar-collapse justify-content-center">
+    <ul class="navbar-nav gap-5 fw-semibold">
+      <li class="nav-item dropdown position-static">
+        <a class="nav-link dropdown-toggle text-dark" href="#" role="button">WOMEN</a>
+        <div class="dropdown-menu w-100 mt-0 border-0 shadow-lg p-4 mega-menu">
+          <div class="row">
+            <div class="col-md-2"><h6 class="fw-bold">Ethnic Wear</h6>
+              <a class="dropdown-item" href="kurtas page.html">Kurta Kurtis</a>
+              <a class="dropdown-item" href="saree page.html">Sarees</a>
+              <a class="dropdown-item" href="lehnga.html">Lehengas</a>
+              <a class="dropdown-item" href="co-ord set.html">Co-ord Sets</a>
+              <a class="dropdown-item" href="Duppatas.html">Dupattas</a>
+            </div>
+            <div class="col-md-2"><h6 class="fw-bold">Western Wear</h6>
+              <a class="dropdown-item" href="tops.html">Tops</a>
+              <a class="dropdown-item" href="dresses.html">Dresses</a>
+              <a class="dropdown-item" href="jumpsuits.html">Jumpsuits</a>
+              <a class="dropdown-item" href="tunics.html">Tunics</a>
+              <a class="dropdown-item" href="shrugs.html">Shrugs</a>
+            </div>
+            <div class="col-md-2"><h6 class="fw-bold">Sports & Active</h6>
+              <a class="dropdown-item" href="trackpants.html">Track Pants</a>
+              <a class="dropdown-item" href="joggers.html">Joggers</a>
+              <a class="dropdown-item" href="tights.html">Tights</a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item dropdown position-static">
+        <a class="nav-link dropdown-toggle text-dark" href="#" role="button">MEN</a>
+        <div class="dropdown-menu w-100 mt-0 border-0 shadow-lg p-4 mega-menu">
+          <div class="row">
+            <div class="col-md-2"><h6 class="fw-bold">Top Wear</h6>
+              <a class="dropdown-item" href="tshirt men.html">T-Shirts</a>
+              <a class="dropdown-item" href="shirt men.html">Shirts</a>
+              <a class="dropdown-item" href="jacket.html">Jackets</a>
+              <a class="dropdown-item" href="sweatshirt.html">Sweatshirts</a>
+            </div>
+            <div class="col-md-2"><h6 class="fw-bold">Bottom Wear</h6>
+              <a class="dropdown-item" href="jeans men.html">Jeans</a>
+              <a class="dropdown-item" href="trousers men.html">Trousers</a>
+              <a class="dropdown-item" href="shorts men.html">Shorts</a>
+              <a class="dropdown-item" href="joggers men.html">Joggers</a>
+            </div>
+            <div class="col-md-2"><h6 class="fw-bold">Indian & Festive</h6>
+              <a class="dropdown-item" href="kurta men.html">Kurta</a>
+              <a class="dropdown-item" href="sherwani men.html">Sherwani</a>
+              <a class="dropdown-item" href="nehru jackets.html">Nehru Jackets</a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item dropdown position-static">
+        <a class="nav-link dropdown-toggle text-dark" href="#" role="button">KIDS</a>
+        <div class="dropdown-menu w-100 mt-0 border-0 shadow-lg p-4 mega-menu">
+          <div class="row">
+            <div class="col-md-3"><h6 class="fw-bold">Girls Clothing</h6>
+              <a class="dropdown-item" href="kids dress girl.html">Dresses</a>
+              <a class="dropdown-item" href="kids saree.html">Ethnic Wear</a>
+              <a class="dropdown-item" href="partywear kids girl.html">Party Wear</a>
+              <a class="dropdown-item" href="kids girl sweatshirts.html">Sweatshirt</a>
+              <a class="dropdown-item" href="kids nightwear girls.html">Nightwear</a>
+            </div>
+            <div class="col-md-3"><h6 class="fw-bold">Boys Clothing</h6>
+              <a class="dropdown-item" href="boys tshirts.html">T-Shirts</a>
+              <a class="dropdown-item" href="boys shirt.html">Shirts</a>
+              <a class="dropdown-item" href="ethnic wear kids.html">Ethnic Wear</a>
+              <a class="dropdown-item" href="boys sweatshirts kids.html">Sweatshirt</a>
+              <a class="dropdown-item" href="kids jacket boys.html">Jackets</a>
+              <a class="dropdown-item" href="boys nightwear kids.html">Nightwear</a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link text-dark" href="offers.html">Offers</a></li>
+    </ul>
+  </div>
+  <div class="d-flex align-items-center gap-4">
+    <a href="search page.html" class="text-dark text-decoration-none text-center small"><div>🔍</div><div>SEARCH</div></a>
+    <a href="add to cart.html" class="text-dark text-decoration-none text-center small">
+      <div>🛒 <span id="cart-count" style="background:#ff4da6;color:white;border-radius:50%;padding:1px 6px;font-size:11px;"></span></div>
+      <div>CART</div>
+    </a>
+    <a href="profile.html" id="profile-link" class="text-dark text-decoration-none text-center small"><div>👤</div><div id="profile-label">PROFILE</div></a>
+  </div>
+</nav>
+
+<!-- Main -->
+<div class="pd-wrapper">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <a href="homepage.html">Home</a> ›
+    <span id="bc-category">Products</span> ›
+    <span id="bc-name" style="color:#333;">Loading...</span>
+  </div>
+
+  <!-- Loading state -->
+  <div id="pd-loading" class="pd-loading">
+    <div class="pd-spinner"></div>
+    <p style="color:#aaa;font-size:15px;">Loading product details...</p>
+  </div>
+
+  <!-- Product card (hidden until loaded) -->
+  <div class="pd-card" id="pd-card" style="display:none;">
+
+    <!-- LEFT: Images -->
+    <div class="pd-images">
+      <div class="pd-main-img-wrap">
+        <img id="product-main-image"
+             src="https://placehold.co/400x460?text=Loading..."
+             alt="Product"
+             onerror="this.src='https://placehold.co/400x460?text=No+Image'">
+        <span class="img-discount-badge" id="img-discount-badge"></span>
+      </div>
+      <!-- Thumbnail row -->
+      <div class="pd-thumbs" id="pd-thumbs"></div>
+    </div>
+
+    <!-- RIGHT: Details -->
+    <div class="pd-details">
+
+      <div class="pd-category" id="product-category"></div>
+      <h1 id="product-name">Loading...</h1>
+
+      <!-- Rating -->
+      <div class="pd-rating">
+        <span class="stars" id="product-stars">★★★★☆</span>
+        <span class="rating-count" id="product-rating-count">(0 reviews)</span>
+        <span class="stock-badge in-stock" id="stock-badge">In Stock</span>
+      </div>
+
+      <!-- Price -->
+      <div class="pd-price-row">
+        <span id="product-price">₹0</span>
+        <span id="product-original-price"></span>
+        <span id="product-discount"></span>
+      </div>
+
+      <!-- Savings -->
+      <div id="savings-banner"></div>
+
+      <!-- Description -->
+      <p id="product-desc">Loading description...</p>
+
+      <hr class="pd-divider">
+
+      <!-- Sizes -->
+      <div id="sizes-section">
+        <div class="pd-section-label">Select Size</div>
+        <div class="size-grid" id="product-sizes"></div>
+      </div>
+
+      <!-- Colors -->
+      <div id="colors-section">
+        <div class="pd-section-label">Select Color</div>
+        <div class="color-grid" id="product-colors"></div>
+      </div>
+
+      <!-- Quantity -->
+      <div class="qty-row">
+        <span class="qty-label">Quantity</span>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <input type="number" id="product-qty" value="1" min="1" max="10" readonly>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-row">
+        <button class="btn-add-cart" id="add-to-cart-btn">🛒 Add to Cart</button>
+        <button class="btn-buy-now" id="buy-now-btn">⚡ Buy Now</button>
+      </div>
+
+      <!-- Features -->
+      <div class="pd-features">
+        <div class="feature-item"><span class="fi">🚚</span> Free delivery above ₹999</div>
+        <div class="feature-item"><span class="fi">↩</span> 7-day easy returns</div>
+        <div class="feature-item"><span class="fi">🔒</span> Secure payment</div>
+        <div class="feature-item"><span class="fi">✅</span> 100% authentic</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div id="pd-toast"></div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/navbar.js"></script>
+<script>
+  let selectedSize  = "";
+  let selectedColor = "";
+  let currentProduct = null;
+
+  // ── TOAST ──────────────────────────────────────────────
+  function showPdToast(msg, type = "success") {
+    const t = document.getElementById("pd-toast");
+    t.textContent = msg;
+    t.style.background = type === "success" ? "#28a745" : "#dc3545";
+    t.style.display = "block";
+    setTimeout(() => t.style.display = "none", 3000);
+  }
+
+  // ── STARS ──────────────────────────────────────────────
+  function renderStars(rating) {
+    const full  = Math.floor(rating);
+    const half  = rating % 1 >= 0.5 ? 1 : 0;
+    const empty = 5 - full - half;
+    return "★".repeat(full) + (half ? "½" : "") + "☆".repeat(empty);
+  }
+
+  // ── QTY CONTROL ────────────────────────────────────────
+  function changeQty(delta) {
+    const input = document.getElementById("product-qty");
+    const max   = currentProduct?.stock || 10;
+    let val = parseInt(input.value) + delta;
+    if (val < 1) val = 1;
+    if (val > max) val = max;
+    input.value = val;
+  }
+
+  // ── SELECT SIZE ────────────────────────────────────────
+  function selectSize(btn, size) {
+    document.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    selectedSize = size;
+  }
+
+  // ── SELECT COLOR ───────────────────────────────────────
+  function selectColor(btn, color) {
+    document.querySelectorAll(".color-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    selectedColor = color;
+  }
+
+  // ── SWITCH MAIN IMAGE ──────────────────────────────────
+  function switchImage(src, thumb) {
+    document.getElementById("product-main-image").src = src;
+    document.querySelectorAll(".pd-thumb").forEach(t => t.classList.remove("active"));
+    thumb.classList.add("active");
+  }
+
+  // ── ADD TO CART ────────────────────────────────────────
+  async function addToCart() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      showPdToast("Please login to add items to cart", "error");
+      setTimeout(() => window.location.href = "login.html", 1500);
+      return;
+    }
+    const qty = parseInt(document.getElementById("product-qty").value) || 1;
+    try {
+      const res = await fetch("/api/cart/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+          productId: currentProduct._id,
+          quantity:  qty,
+          size:      selectedSize,
+          color:     selectedColor,
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showPdToast("✅ Added to cart!");
+        updateCartCount();
+      } else {
+        showPdToast("⚠️ " + (data.message || "Failed to add"), "error");
+      }
+    } catch {
+      showPdToast("⚠️ Cannot connect to server", "error");
+    }
+  }
+
+  // ── BUY NOW ────────────────────────────────────────────
+  async function buyNow() {
+    await addToCart();
+    setTimeout(() => window.location.href = "payment.html", 800);
+  }
+
+  // ── LOAD PRODUCT ───────────────────────────────────────
+  async function loadProduct() {
+    const params    = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+    if (!productId) {
+      document.getElementById("pd-loading").innerHTML = `
+        <div style="font-size:50px;margin-bottom:16px;">😕</div>
+        <h3 style="color:#b30059;">Product Not Found</h3>
+        <p style="color:#aaa;margin-bottom:20px;">No product ID was provided.</p>
+        <a href="homepage.html" style="background:#ff4da6;color:white;padding:12px 28px;
+           border-radius:25px;text-decoration:none;font-weight:700;">← Back to Home</a>`;
+      return;
+    }
+
+    try {
+      const res  = await fetch("/api/products/" + productId);
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || "Product not found");
+
+      const p = data.product;
+      currentProduct = p;
+
+      // Hide loading, show card
+      document.getElementById("pd-loading").style.display = "none";
+      document.getElementById("pd-card").style.display    = "flex";
+
+      // Page title
+      document.title = p.name + " - Clothing Store";
+
+      // Breadcrumb
+      document.getElementById("bc-category").textContent = p.category || "Products";
+      document.getElementById("bc-name").textContent     = p.name;
+
+      // Category label
+      document.getElementById("product-category").textContent =
+        (p.gender ? p.gender.toUpperCase() + " · " : "") + (p.category || "").toUpperCase().replace(/-/g, " ");
+
+      // Name
+      document.getElementById("product-name").textContent = p.name;
+
+      // Rating
+      const rating = p.ratings || 4.0;
+      document.getElementById("product-stars").textContent      = renderStars(rating);
+      document.getElementById("product-rating-count").textContent =
+        `(${p.numReviews || 0} reviews)`;
+
+      // Stock badge
+      const stockBadge = document.getElementById("stock-badge");
+      if (p.stock <= 0) {
+        stockBadge.textContent = "Out of Stock";
+        stockBadge.className   = "stock-badge out-stock";
+      } else if (p.stock <= 5) {
+        stockBadge.textContent = `Only ${p.stock} left!`;
+        stockBadge.className   = "stock-badge low-stock";
+      } else {
+        stockBadge.textContent = "In Stock";
+        stockBadge.className   = "stock-badge in-stock";
+      }
+
+      // Price
+      document.getElementById("product-price").textContent = "₹" + p.price;
+      if (p.originalPrice) {
+        document.getElementById("product-original-price").textContent = "₹" + p.originalPrice;
+      }
+      if (p.discount) {
+        const discEl = document.getElementById("product-discount");
+        discEl.textContent   = p.discount + "% OFF";
+        discEl.style.display = "inline-block";
+        // Savings banner
+        const saved = p.originalPrice - p.price;
+        const savEl = document.getElementById("savings-banner");
+        savEl.textContent   = `🎉 You save ₹${saved} on this product!`;
+        savEl.style.display = "block";
+        // Image badge
+        const imgBadge = document.getElementById("img-discount-badge");
+        imgBadge.textContent   = p.discount + "% OFF";
+        imgBadge.style.display = "block";
+      }
+
+      // Description
+      document.getElementById("product-desc").textContent =
+        p.description || "Premium quality product. Comfortable fabric with stylish design.";
+
+      // Main image
+      const mainImg = p.images && p.images[0]
+        ? p.images[0]
+        : "https://placehold.co/400x460?text=" + encodeURIComponent(p.name);
+      document.getElementById("product-main-image").src = mainImg;
+
+      // Thumbnails
+      if (p.images && p.images.length > 1) {
+        const thumbsEl = document.getElementById("pd-thumbs");
+        p.images.forEach((img, i) => {
+          const thumb = document.createElement("img");
+          thumb.src       = img;
+          thumb.className = "pd-thumb" + (i === 0 ? " active" : "");
+          thumb.alt       = p.name;
+          thumb.onerror   = () => thumb.style.display = "none";
+          thumb.onclick   = () => switchImage(img, thumb);
+          thumbsEl.appendChild(thumb);
+        });
+      }
+
+      // Sizes
+      const sizesEl = document.getElementById("product-sizes");
+      if (p.sizes && p.sizes.length > 0) {
+        p.sizes.forEach(s => {
+          const btn = document.createElement("button");
+          btn.className   = "size-btn";
+          btn.textContent = s;
+          btn.onclick     = () => selectSize(btn, s);
+          sizesEl.appendChild(btn);
+        });
+      } else {
+        document.getElementById("sizes-section").style.display = "none";
+      }
+
+      // Colors
+      const colorsEl = document.getElementById("product-colors");
+      if (p.colors && p.colors.length > 0) {
+        p.colors.forEach(c => {
+          const btn = document.createElement("button");
+          btn.className   = "color-btn";
+          btn.textContent = c;
+          btn.onclick     = () => selectColor(btn, c);
+          colorsEl.appendChild(btn);
+        });
+      } else {
+        document.getElementById("colors-section").style.display = "none";
+      }
+
+      // Max qty
+      document.getElementById("product-qty").max = p.stock || 10;
+
+      // Button events
+      document.getElementById("add-to-cart-btn").onclick = addToCart;
+      document.getElementById("buy-now-btn").onclick     = buyNow;
+
+      // Disable if out of stock
+      if (p.stock <= 0) {
+        document.getElementById("add-to-cart-btn").disabled = true;
+        document.getElementById("add-to-cart-btn").textContent = "Out of Stock";
+        document.getElementById("buy-now-btn").disabled = true;
+      }
+
+    } catch (err) {
+      document.getElementById("pd-loading").innerHTML = `
+        <div style="font-size:50px;margin-bottom:16px;">⚠️</div>
+        <h3 style="color:#b30059;">Could Not Load Product</h3>
+        <p style="color:#aaa;margin-bottom:20px;">${err.message}</p>
+        <a href="homepage.html" style="background:#ff4da6;color:white;padding:12px 28px;
+           border-radius:25px;text-decoration:none;font-weight:700;">← Back to Home</a>`;
+    }
+  }
+
+  // Start
+  loadProduct();
+</script>
+
+</body>
+</html>

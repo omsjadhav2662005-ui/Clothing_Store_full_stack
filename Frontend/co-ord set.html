@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ethnic Co-Ord Set Collection</title>
+
+<style>
+body{font-family:Arial;background:#ffe6f0;margin:0}
+
+/* HEADER */
+.header{
+  background:#ff4da6;
+  color:white;
+  padding:15px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+}
+
+/* COLLECTION */
+.product-section{
+  max-width:1200px;
+  margin:auto;
+  padding:20px;
+}
+
+.controls{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+select{
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #ff80b3;
+}
+
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.product-card{
+  background:#fff;
+  padding:15px;
+  border-radius:15px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  cursor:pointer;
+  transition:.3s;
+}
+
+.product-card:hover{transform:translateY(-6px);}
+.product-card img{width:100%;border-radius:10px;}
+.product-name{font-weight:bold;color:#b30059;margin-top:10px;}
+.product-price{color:#ff4da6;font-weight:bold;margin:5px 0}
+
+/* FULL PRODUCT VIEW */
+#productView{
+  display:none;
+  max-width:1100px;
+  margin:40px auto;
+  background:white;
+  padding:35px;
+  border-radius:18px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.1);
+}
+
+.product-container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:40px;
+  align-items:center;
+}
+
+#productView img{
+  width:380px;
+  border-radius:15px;
+}
+
+.details{flex:1;}
+
+.price{
+  font-size:28px;
+  color:#ff4da6;
+  font-weight:bold;
+  margin:15px 0;
+}
+
+.sizes button{
+  border:1px solid #ccc;
+  background:white;
+  padding:10px 15px;
+  margin-right:10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.sizes button.active{
+  border-color:#ff4da6;
+  color:#ff4da6;
+  font-weight:bold;
+}
+
+.btn{
+  background:#ff4da6;
+  color:white;
+  padding:14px 28px;
+  border:none;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+  margin-right:15px;
+}
+
+.back{
+  background:#e0e0e0;
+  color:#333;
+  margin-bottom:20px;
+}
+</style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-3">
+    <img src="images/logo.img.png" alt="ClothingStore Logo" class="logo">
+
+    <div class="collapse navbar-collapse justify-content-center">
+      <ul class="navbar-nav gap-5 fw-semibold">
+
+        <!-- WOMEN -->
+        <li class="nav-item dropdown position-static">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button">WOMEN</a>
+          <div class="dropdown-menu w-100 mt-0 border-0 shadow-lg p-4 mega-menu">
+            <div class="row">
+              <div class="col-md-2">
+                <h6 class="fw-bold">Ethnic Wear</h6>
+                <a class="dropdown-item" href="kurtas page.html">Kurta Kurtis</a>
+                <a class="dropdown-item" href="saree page.html">Sarees</a>
+                <a class="dropdown-item" href="lehnga.html">Lehengas</a>
+                <a class="dropdown-item" href="co-ord set.html">Ethnics co ord set</a>
+                <a class="dropdown-item" href="Duppatas.html">Dupattas</a>
+              </div>
+              <div class="col-md-2">
+                <h6 class="fw-bold">Western Wear</h6>
+                <a class="dropdown-item" href="tops.html">Tops</a>
+                <a class="dropdown-item" href="dresses.html">Dresses</a>
+                <a class="dropdown-item" href="jumpsuits.html">Jumpsuits</a>
+                <a class="dropdown-item" href="tunics.html">Tunics</a>
+                <a class="dropdown-item" href="shrugs.html">Shrugs</a>
+              </div>
+              <div class="col-md-2">
+                <h6 class="fw-bold">Sports & Activewear</h6>
+                <a class="dropdown-item" href="trackpants.html">Track Pants</a>
+                <a class="dropdown-item" href="joggers.html">Joggers</a>
+                <a class="dropdown-item" href="tights.html">Tights</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- MEN -->
+        <li class="nav-item dropdown position-static">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button">MEN</a>
+          <div class="dropdown-menu w-100 mt-0 border-0 shadow-lg p-4 mega-menu">
+            <div class="row">
+              <div class="col-md-2">
+                <h6 class="fw-bold">Top Wear</h6>
+                <a class="dropdown-item" href="tshirt men.html">T-Shirts</a>
+                <a class="dropdown-item" href="shirt men.html">Shirts</a>
+                <a class="dropdown-item" href="jacket.html">Jackets</a>
+                <a class="dropdown-item" href="sweatshirt.html">Sweatshirts</a>
+              </div>
+              <div class="col-md-2">
+                <h6 class="fw-bold">Bottom Wear</h6>
+                <a class="dropdown-item" href="jeans men.html">Jeans</a>
+                <a class="dropdown-item" href="trousers men.html">Trousers</a>
+                <a class="dropdown-item" href="shorts men.html">Shorts</a>
+                <a class="dropdown-item" href="joggers men.html">Joggers</a>
+              </div>
+              <div class="col-md-2">
+                <h6 class="fw-bold">Indian & Festive</h6>
+                <a class="dropdown-item" href="kurta men.html">Kurta</a>
+                <a class="dropdown-item" href="sherwani men.html">Sherwani</a>
+                <a class="dropdown-item" href="nehru jackets.html">Nehru Jackets</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- KIDS -->
+        <li class="nav-item dropdown position-static">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button">KIDS</a>
+          <div class="dropdown-menu w-100 mt-0 border-0 shadow-lg p-4 mega-menu">
+            <div class="row">
+              <div class="col-md-3">
+                <h6 class="fw-bold">Girls Clothing</h6>
+                <a class="dropdown-item" href="kids dress girl.html">Dresses</a>
+                <a class="dropdown-item" href="kids saree.html">Ethnic Wear</a>
+                <a class="dropdown-item" href="partywear kids girl.html">Party Wear</a>
+                <a class="dropdown-item" href="kids girl sweatshirts.html">Sweatshirt</a>
+                <a class="dropdown-item" href="kids nightwear girls.html">Nightwear</a>
+              </div>
+              <div class="col-md-3">
+                <h6 class="fw-bold">Boys Clothing</h6>
+                <a class="dropdown-item" href="boys tshirts.html">Tshirt</a>
+                <a class="dropdown-item" href="boys shirt.html">Shirts</a>
+                <a class="dropdown-item" href="ethnic wear kids.html">Ethnic Wear</a>
+                <a class="dropdown-item" href="boys sweatshirts kids.html">Sweatshirt</a>
+                <a class="dropdown-item" href="kids jacket boys.html">Jackets</a>
+                <a class="dropdown-item" href="boys nightwear kids.html">Nightwear</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="offers.html">Offers</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right-side icons -->
+    <div class="d-flex align-items-center gap-4">
+      <a href="search page.html" class="text-dark text-decoration-none text-center small">
+        <div>🔍</div><div>SEARCH</div>
+      </a>
+      <a href="add to cart.html" class="text-dark text-decoration-none text-center small">
+        <div>🛒 <span id="cart-count" style="background:#ff4da6;color:white;border-radius:50%;padding:1px 6px;font-size:11px;"></span></div>
+        <div>CART</div>
+      </a>
+      <a href="profile.html" id="profile-link" class="text-dark text-decoration-none text-center small">
+        <div>👤</div><div id="profile-label">PROFILE</div>
+      </a>
+    </div>
+  </nav>
+
+
+<div class="header">Ethnic Co-Ord Set Collection</div>
+
+<!-- COLLECTION -->
+<div class="product-section" id="collection">
+
+<div class="controls">
+<select id="filter">
+<option value="all">All</option>
+<option value="cotton">Cotton</option>
+<option value="silk">Silk</option>
+<option value="linen">Linen</option>
+</select>
+
+<select id="sort">
+<option value="latest">Latest</option>
+<option value="low-high">Price: Low → High</option>
+<option value="high-low">Price: High → Low</option>
+<option value="az">Name: A → Z</option>
+</select>
+</div>
+
+<div class="product-grid" id="products"></div>
+</div>
+
+<!-- FULL VIEW -->
+<div id="productView">
+
+<button class="btn back" onclick="goBack()">⬅ Back to Collection</button>
+
+<div class="product-container">
+<img id="pImg">
+
+<div class="details">
+<h1 id="pName"></h1>
+<p class="price" id="pPrice"></p>
+
+<h3>Select Size</h3>
+
+<div class="sizes">
+<button onclick="selectSize(this)">S</button>
+<button onclick="selectSize(this)">M</button>
+<button onclick="selectSize(this)">L</button>
+<button onclick="selectSize(this)">XL</button>
+</div>
+
+<br><br>
+
+<button class="btn" onclick="addToCart()">Add to Cart</button>
+<button class="btn" onclick="window.location='payment.html'">Buy Now</button>
+
+</div>
+</div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/products.js"></script>
+<script>
+  const CATEGORY = "co-ord-sets";
+  document.addEventListener("DOMContentLoaded", () => {
+    loadProducts("products", { category: CATEGORY, limit: 24 });
+  });
+  const sortEl = document.getElementById("sort");
+  if (sortEl) {
+    sortEl.addEventListener("change", function () {
+      const map = {
+        "low":"price-asc","low-high":"price-asc",
+        "high":"price-desc","high-low":"price-desc",
+        "az":"newest","latest":"newest","default":"newest"
+      };
+      loadProducts("products", { category: CATEGORY, sort: map[this.value]||"newest", limit: 24 });
+    });
+  }
+  const pv = document.getElementById("productView");
+  if (pv) pv.style.display = "none";
+</script>
+
+</body>
+</html>

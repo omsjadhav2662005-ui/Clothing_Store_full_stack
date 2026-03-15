@@ -1,0 +1,310 @@
+/* Base background and typography */
+body {
+  background-color: #ffffff;
+  color: #212529;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sticky Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Navbar links */
+.navbar-nav .nav-link {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: #212529;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+  text-decoration: underline;
+}
+
+.navbar-nav .nav-link:focus {
+  color: #212529 !important;
+  text-decoration: none !important;
+}
+
+.navbar-nav .nav-link.active {
+  color: #dc3540;
+  font-weight: bold;
+}
+
+/* Mega menu visibility on hover */
+.nav-item.dropdown:hover .mega-menu,
+.nav-item.dropdown:focus-within .mega-menu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mega menu layout */
+.mega-menu {
+  display: none;
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 999;
+  background: #ffffff;
+  padding: 1rem;
+  border-top: 3px solid #dc3545;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Mega menu headings */
+.mega-menu h6 {
+  background: #f8f9fa;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #dc3580;
+}
+
+/* Mega menu item links */
+.dropdown-item {
+  font-size: 13px;
+  padding: 4px 8px;
+  color: #212529;
+  transition: color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  color: #dc359ce0;
+  background-color: #f8f9fa;
+}
+
+/* Icon links (Search, Cart, Profile) */
+.navbar .text-decoration-none div:first-child {
+  font-size: 18px;
+}
+
+.navbar .text-decoration-none div:last-child {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 991px) {
+  .mega-menu {
+    position: static !important;
+    box-shadow: none;
+    border-top: none;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+/* Ensure dropdown remains open when hovering over it */
+.nav-item.dropdown:hover .dropdown-menu,
+.nav-item.dropdown .dropdown-menu:hover {
+  display: block;
+  margin-top: 0;
+}
+.logo{
+  height: 50px;     /* Decrease height */
+  width: auto;      /* Keeps the aspect ratio */
+  margin-left: 20px;
+}
+.slider {
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+.carousel-item img {
+  max-height: 650px;
+  object-fit: cover;
+}
+/* General page background */
+body {
+    background-color: #ffe6f0; /* Pink */
+    font-family: Arial, sans-serif;
+}
+
+/* Form container */
+.form-container {
+    max-width: 400px;
+    margin: 80px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #d63384; /* Pink heading */
+    font-weight: bold;
+}
+
+/* Buttons */
+.btn-custom {
+    background-color: #d63384;
+    color: white;
+    border: none;
+    transition: 0.3s;
+}
+.btn-custom:hover {
+    background-color: #b12c6e;
+}
+
+/* Input focus effect */
+.form-control:focus {
+    border-color: #d63384;
+    box-shadow: 0 0 0 0.2rem rgba(214, 51, 132, 0.25);
+}
+
+/* Footer links */
+.form-footer {
+    text-align: center;
+    margin-top: 15px;
+}
+.form-footer a {
+    color: #d63384;
+    text-decoration: none;
+}
+.form-footer a:hover {
+    text-decoration: underline;
+}
+#splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(207, 89, 146); /* change if you want */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #splash img {
+      width: 400px; /* Adjust logo size */
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f9f9f9;
+}
+
+.main-header {
+    background: pink;
+    padding: 1rem;
+    text-align: center;
+    color: white;
+}
+
+.controls {
+    margin-top: 1rem;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.category-card {
+    text-align: center;
+    cursor: pointer;
+    max-width: 300px;
+    margin: auto;
+}
+
+.category-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+.category-card {
+  text-decoration: none;
+  color: black;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.category-card img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-card:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.category-card:hover h6 {
+  color: #ff4da6;
+}
+/* PRODUCT CARD EFFECT */
+
+.product-card{
+  border:none;
+  border-radius:12px;
+  overflow:hidden;
+  transition:0.3s;
+}
+
+.product-card img{
+  height:260px;
+  object-fit:cover;
+}
+
+.product-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 12px 25px rgba(0,0,0,0.15);
+}
